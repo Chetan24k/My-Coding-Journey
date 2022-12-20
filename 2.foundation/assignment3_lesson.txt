@@ -1,0 +1,24 @@
+till now we have learnt that we can create property inside the function property
+of the object 
+
+let mark={
+    fullName:'mark miller',
+    weight:78,
+    height:1.69,
+    calcBMI:function(){
+         this.BMI=this.weight/(this.height*this.height);
+         return this.BMI;
+
+    }
+}
+and can access the property directly 
+
+console.log(mark.BMI);
+>>undefined 
+
+result is undefined because first we need to call the function
+then call the property
+
+console.log(mark.calcBMI());
+console.log(mark.BMI);
+>>24
