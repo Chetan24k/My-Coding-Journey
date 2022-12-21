@@ -1,0 +1,7 @@
+DOM is not part of javascript language it is web API used by browser to manipulate 
+the web pages.
+
+put the script tag on bottom of the page.
+as when webpage is loaded first script tag is executed then js file is called
+and if we use document tag then html elements are accessed 
+but html elements are not loaded yet.
