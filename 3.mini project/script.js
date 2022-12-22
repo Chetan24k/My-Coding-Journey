@@ -8,13 +8,8 @@ let score=20;
 let a=0;
 
 
-document.querySelector('.number').textContent = randomNumber;
-
 document.querySelector('.check').addEventListener('click',function()
 {
-   const guess=Number( document.querySelector('.guess').value);
-a++;
-console.log(a);
    
    if(!guess)
    {
@@ -23,24 +18,35 @@ console.log(a);
    else if(guess===randomNumber)
    {
        document.querySelector('.message').textContent ="Correct Number😎";
-   } 
-  else if(score===0)
-   {
-    document.querySelector('.score').textContent = 0;
-    document.querySelector('.message').textContent="game over😭"
-    return;
    }  
    else if(guess>randomNumber)
    {
+    if(score>1)
+    {
        document.querySelector('.message').textContent ="Number is too High📈";
        score--;
        document.querySelector('.score').textContent =score;
+    }
+    else
+    {
+        document.querySelector(".score").textContent =0;
+        document.querySelector('.message').textContent="Game over😭"
+    }
    }
    else if(guess<randomNumber)
    {
+    if(score>1)
+    {
        document.querySelector('.message').textContent ="Number is too Low📉";
        score--;
        document.querySelector('.score').textContent =score;
+    }
+    else
+    {
+        document.querySelector(".score").textContent =0;
+        document.querySelector('.message').textContent="Game over😭"
+    }
+
 
    }
 }
