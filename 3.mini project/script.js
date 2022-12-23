@@ -6,6 +6,7 @@
 let randomNumber =Math.floor(Math.random() * (20 - 1 + 1)) + 1;
 let score=20;
 let a=0;
+let highScore=0;
 
 console.log(randomNumber);
 document.querySelector('.check').addEventListener('click',function()
@@ -21,6 +22,8 @@ document.querySelector('.check').addEventListener('click',function()
        document.querySelector('body').style.backgroundColor="Green";
        document.querySelector(".number").style.width="30rem";
        document.querySelector(".number").textContent=guess;
+       highScore=score>highScore?score:highScore;
+       document.querySelector(".highscore").textContent=highScore;
 
    }  
    else if(guess>randomNumber)
