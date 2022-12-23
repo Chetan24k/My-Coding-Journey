@@ -7,10 +7,10 @@ let randomNumber =Math.floor(Math.random() * (20 - 1 + 1)) + 1;
 let score=20;
 let a=0;
 
-
+console.log(randomNumber);
 document.querySelector('.check').addEventListener('click',function()
 {
-   
+   let guess=Number(document.querySelector(".guess").value);
    if(!guess)
    {
        document.querySelector('.message').textContent ="No Number😐";
@@ -18,6 +18,10 @@ document.querySelector('.check').addEventListener('click',function()
    else if(guess===randomNumber)
    {
        document.querySelector('.message').textContent ="Correct Number😎";
+       document.querySelector('body').style.backgroundColor="Green";
+       document.querySelector(".number").style.width="30rem";
+       document.querySelector(".number").textContent=guess;
+
    }  
    else if(guess>randomNumber)
    {
