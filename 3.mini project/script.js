@@ -55,3 +55,27 @@ document.querySelector('.check').addEventListener('click',function()
    }
 }
 )
+
+// document.querySelector(".again").addEventListener('click',function()
+// {
+//     document.querySelector("body").style.backgroundColor="#222";
+//     let a=document.queryselector(".message").textContent;
+//     console.log(a);
+//     // document.queryselector(".message").textContent="Start Guessing...";
+
+//     // document.querySelector(".number").textContent="?";
+//     // document.queryselector(".score").textContent=20;
+//     // randomNumber =Math.floor(Math.random() * (20 - 1 + 1)) + 1;
+// }
+// )
+document.querySelector(".again").addEventListener('click',function()
+{
+    score=20;
+    document.querySelector(".score").textContent=score;
+    document.querySelector(".message").textContent="start guessing...";
+    document.querySelector("body").style.backgroundColor="#222";
+    randomNumber=Math.floor(Math.random() * (20 - 1 + 1)) + 1;
+    document.querySelector(".guess").value="";
+    document.querySelector(".number").style.width="15rem";
+    document.querySelector(".number").textContent="?";
+})
