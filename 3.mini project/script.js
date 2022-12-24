@@ -27,6 +27,8 @@ document.querySelector('.check').addEventListener('click',function()
     if(score>1)
     {
         document.querySelector('.message').textContent=guess>randomNumber?"Number is too High📈":"Number is too Low📉";
+        score--;
+        document.querySelector('.score').textContent=score;
     }
     else
     {
@@ -59,4 +61,5 @@ document.querySelector(".again").addEventListener('click',function()
     document.querySelector(".guess").value="";
     document.querySelector(".number").style.width="15rem";
     document.querySelector(".number").textContent="?";
-})
+}
+)
