@@ -28,13 +28,11 @@ overlay.addEventListener("click",closeModal);
 document.addEventListener("keydown",function(e)
 {
     // console.log(e.key);
-   if(e.key==="Escape")
+   if(e.key==="Escape"&&!modal.classList.contains("hidden"))
    {
     //we have to make sure that we dont press escape when we dont 
     //have modal window shown on screen
-    if(!modal.classList.contains("hidden"))
-    {
         closeModal();
-    }
+
    }
 })
