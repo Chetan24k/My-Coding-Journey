@@ -1,0 +1,13 @@
+syntax of addEventListener:
+EventTarget.addEventListener()
+The addEventListener() method of the EventTarget interface sets up a function that will be called whenever 
+the specified event is delivered to the target.
+we can call event on document(entire page) or select an element and call
+event on it.
+
+addEventListener has some parameters like
+addEventListener(type, listener)
+addEventListener(type, listener, options)
+addEventListener(type, listener, useCapture)
+
+here "type" parameter has details for the that has occured  
