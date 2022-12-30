@@ -103,6 +103,7 @@ btnHold.addEventListener("click",function()
   
 
 })
-
+//dont need to call the function inside addEventListener just pass the 
+//value of the function js calls the function
 btnNew.addEventListener("click",init);
 
