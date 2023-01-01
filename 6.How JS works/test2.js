@@ -16,7 +16,8 @@ var b=20;
 console.log(b);
 
 console.log(funDecl(2,3));
-// console.log(funExp(2,3));
+console.log(funExp(2,3));
+//gives undefined as the output 
 // console.log(funArr(2,3));
 
 
