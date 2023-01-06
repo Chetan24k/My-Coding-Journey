@@ -33,9 +33,12 @@ const restaurant = {
   }
 };
 
-let ({a,b}=restaurant);
-
-// let arr=restaurant.order(0,2);
-// let [a,b]=restaurant.order(0,2);
-// console.log(arr);
-console.log(a,b);
+// let {openingHours}=restaurant
+// let {fri:{open,close}}=openingHours;
+// console.log(open,close);
+// 11 23
+let {openingHours:{fri}}=restaurant;
+console.log(fri);
+// let {fri}=restaurant.openingHours;
+// console.log(fri);
+// Cannot read properties of undefined (reading 'fri')

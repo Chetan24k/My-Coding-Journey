@@ -1,1 +1,2 @@
-console.log(arr);
+let {fri}=restaurant.openingHours;
+// console.log(fri);
