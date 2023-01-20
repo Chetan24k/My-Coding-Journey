@@ -42,10 +42,10 @@ const obj={
     male:true,
 }
 
-let {no,fname,male}=obj;
-console.log(no,fname,male);
-// let {fname:n,no:r,male:m,pin=421503}=obj;
-
+// let {no,fname,male}=obj;
+// console.log(no,fname,male);
+let {fname:n,no:r,male:m,pin=421503}=obj;
+console.log(n,r,m);
 
 let a=1;
 let b=2;

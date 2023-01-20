@@ -30,15 +30,23 @@ const restaurant = {
   order:function(startIndex,endIndex)
   {
     return [this.starterMenu[startIndex],this.starterMenu[endIndex]];
+  },
+  printrOrder:function({startIndex,endIndex,locationIndex})
+  {
+    console.log(`${this.mainMenu[startIndex]}, ${this.mainMenu[endIndex]}  ${this.locationIndex[locationIndex]}`);
   }
 };
+
+//
+
+
 
 // let {openingHours}=restaurant
 // let {fri:{open,close}}=openingHours;
 // console.log(open,close);
 // 11 23
-let {openingHours:{fri}}=restaurant;
-console.log(fri);
+let {openingHours:{fri:{open,close}}}=restaurant;
+console.log(open ,close);
 // let {fri}=restaurant.openingHours;
 // console.log(fri);
 // Cannot read properties of undefined (reading 'fri')
