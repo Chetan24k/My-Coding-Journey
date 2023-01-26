@@ -77,10 +77,11 @@ let printGoals=function(...playernames)
 
 let teamWin;
 teamWin=team1<team2&&`team 1 will win `;
-teamWin=teamWin||`team 2 will win`
+teamWin=teamWin||`team 2 will win`;
 
 // console.log(teamWin);
 
-for (const iterator of allPlayers) {
-    console.log(iterator);
+for (const [index,element] of allPlayers.entries()) {
+    console.log(`${index} : ${element}`);
 }
+// console.log(allPlayers.entries());
