@@ -1,5 +1,6 @@
 //split is use dto split the strings and store them in array based on the
 //divider strings
+//imp : while splitiing we exclude the character upon which make  the split
 let str='a+nice+house'
 let a=str.split('+');
 console.log(a);
@@ -32,3 +33,10 @@ let capitalizeName=function(str)
 console.log(capitalizeName("chetan vijay kharote"));
 
 //padding the string
+let maskCreditCard=function(number)
+{
+    let str=number.toString();
+    let lastFour=str.slice(-4);
+    console.log(lastFour.padStart(str.length,'*'));
+}
+console.log(maskCreditCard(123456));
