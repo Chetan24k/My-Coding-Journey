@@ -90,3 +90,60 @@ containerMovements.insertAdjacentHTML('afterbegin',html);
   });
 };
 displayMovements(account1.movements);
+
+
+
+function createUserNames(accounts)
+{
+  accounts.forEach(function(user)
+  {
+    user.owner=user.owner.toLowerCase().split(" ").map(function(name)
+    {
+      return name[0];
+    }).join('');
+  })
+}
+createUserNames(accounts);
+
+
+function makeWithdraw(accounts)
+{
+    accounts.forEach(acc => 
+    {
+     acc.withdrawArray=acc.movements.filter(Element=>Element<0);
+    });
+}
+function makeDeposites(accounts)
+{
+    accounts.forEach(acc => 
+    {
+     acc.depositsArray=acc.movements.filter(Element=>Element<0);
+    });
+} 
+
+// function calculateBalance(accounts)
+// {
+//   accounts.forEach(acc=>
+//   acc.balance=  acc.movements.reduce((acc,element)=>
+//     acc+element  )
+//     )
+  
+// }
+
+function calculateBalance(account)
+{
+  let balance= account.movements.reduce((acc,Element)=>
+    {
+       return acc+Element;
+    })
+  console.log(balance,"hii");
+  return balance;
+}
+
+function displayBalance()
+{
+  account1.balance=calculateBalance(accounts[0]);
+  labelBalance.textContent=accounts[0].balance+" €";
+}
+displayBalance();
+console.log(account1.balance);
