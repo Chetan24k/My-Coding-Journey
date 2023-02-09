@@ -145,7 +145,7 @@ let output8=input8.map(function(Element)
 
    
 
-    const productsByCategory = products.reduce((acc, product) => {
+const productsByCategory = products.reduce((acc, product) => {
       const category = product.category;
       if (!acc[category]) {
         acc[category] = [];
@@ -154,9 +154,18 @@ let output8=input8.map(function(Element)
       return acc;
     }, {});
   
-console.log(Object.keys(productsByCategory));
+console.log(productsByCategory);
 
-
+let output10=Object.keys(productsByCategory).map(function(element)
+{
+    let average=productsByCategory[element].reduce(function(acc,curr,i,arr)
+    {
+      acc+=curr.price/arr.length;
+      return acc;
+    },0)
+    return {category:element,average:average};
+})
+console.log(output10);
 
 
 

@@ -147,3 +147,16 @@ function displayBalance()
 }
 displayBalance();
 console.log(account1.balance);
+
+function calcDisplaySummary(movements)
+{
+  const income= movements.filter(Element=>Element>0).reduce((acc,curr)=>acc+curr);
+  labelSumIn.textContent=`${income} E`;
+
+  const out=movements.filter(Element=>Element<0).reduce((acc,curr)=>acc+curr);
+  labelSumOut.textContent=`${Math.abs(out)} E`;
+
+  const interest=movements.filter(mov=>mov>0).map(deposite=>deposite*1.2/100).filter((int,i,arr)=> int>=1).reduce((acc,int)=>acc+int);
+  labelSumInterest.textContent=`${interest} E`;
+}
+calcDisplaySummary(account1.movements);
