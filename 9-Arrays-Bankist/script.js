@@ -97,13 +97,13 @@ function createUserNames(accounts)
 {
   accounts.forEach(function(user)
   {
-    user.owner=user.owner.toLowerCase().split(" ").map(function(name)
+    user.username=user.owner.toLowerCase().split(" ").map(function(name)
     {
       return name[0];
     }).join('');
   })
 }
-createUserNames(accounts);
+// createUserNames(accounts);
 
 
 function makeWithdraw(accounts)
@@ -132,31 +132,75 @@ function makeDeposites(accounts)
 
 function calculateBalance(account)
 {
-  let balance= account.movements.reduce((acc,Element)=>
+  // console.log(movements);
+   account.balance= account.movements.reduce((acc,Element)=>
     {
        return acc+Element;
     })
-  console.log(balance,"hii");
-  return balance;
+  // console.log(balance,"hii");
+  labelBalance.textContent=account.balance;
 }
 
-function displayBalance()
-{
-  account1.balance=calculateBalance(accounts[0]);
-  labelBalance.textContent=accounts[0].balance+" €";
-}
-displayBalance();
-console.log(account1.balance);
+// function displayBalance()
+// {
+//   account1.balance=calculateBalance(accounts[0]);
+//   labelBalance.textContent=accounts[0].balance+" €";
+// }
+// displayBalance();
+// console.log(account1.balance);
 
-function calcDisplaySummary(movements)
+function calcDisplaySummary(account)
 {
-  const income= movements.filter(Element=>Element>0).reduce((acc,curr)=>acc+curr);
+  const income= account.movements.filter(Element=>Element>0).reduce((acc,curr)=>acc+curr);
   labelSumIn.textContent=`${income} E`;
 
-  const out=movements.filter(Element=>Element<0).reduce((acc,curr)=>acc+curr);
+  const out=account.movements.filter(Element=>Element<0)?.reduce((acc,curr)=>acc+curr);
   labelSumOut.textContent=`${Math.abs(out)} E`;
 
-  const interest=movements.filter(mov=>mov>0).map(deposite=>deposite*1.2/100).filter((int,i,arr)=> int>=1).reduce((acc,int)=>acc+int);
+  const interest=account.movements.filter(mov=>mov>0).map(deposite=>deposite*account.interestRate/100).filter((int,i,arr)=> int>=1).reduce((acc,int)=>acc+int);
   labelSumInterest.textContent=`${interest} E`;
 }
-calcDisplaySummary(account1.movements);
+// calcDisplaySummary(account1.movements);
+ 
+//event handlers
+createUserNames(accounts);
+
+let currentAccount;
+btnLogin.addEventListener("click",function(e)
+{console.log("hi");
+  e.preventDefault();
+  currentAccount= accounts.find(acc=>acc.username===inputLoginUsername.value);
+  if(currentAccount&& currentAccount.pin===Number(inputLoginPin.value))
+  {
+    console.log("login");
+    labelWelcome.textContent=`welcome back, ${currentAccount.owner.split(' ')[0]}`
+    containerApp.style.opacity=100;
+
+    
+
+  }
+  inputLoginUsername.value=inputLoginPin.value="";
+    inputLoginPin.blur();
+  displayMovements(currentAccount.movements);
+
+  calculateBalance(currentAccount);
+
+  calcDisplaySummary(currentAccount);
+   
+});
+btnTransfer.addEventListener("click",function(e)
+{
+  e.preventDefault();
+  const amount=Number(inputTransferAmount.value);
+  const receivedAcc=accounts.find(Element=>Element.username===inputTransferTo.value);
+  console.log(amount,receivedAcc);
+  console.log( receivedAcc?.username!==currentAccount.username);
+  if(amount>0&&
+    receivedAcc&&
+    currentAccount.balance>=amount&&
+    receivedAcc?.username!==currentAccount.username)
+  {
+    console.log("valid");
+    
+  }
+})

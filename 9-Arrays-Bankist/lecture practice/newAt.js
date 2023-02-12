@@ -7,11 +7,11 @@
 
 //find method
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
-// const ans=movements.find(function(element)
-// {
-//   return  element>500
-// })
-// console.log(ans);
+const ans=movements.find(function(element)
+{
+  return  element>50000;
+})
+//if no elements is found mathicng the condition then undefined is returned
 function find(arr,fun)
 {
    for (const i of arr ) 
