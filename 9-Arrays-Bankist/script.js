@@ -243,5 +243,5 @@ btnLoan.addEventListener("click",function(e)
 })
 
 //every method
-
+// console.log(movements.every(Element=>Element>-400));
  
