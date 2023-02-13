@@ -215,5 +215,17 @@ btnTransfer.addEventListener("click",function(e)
 btnClose.addEventListener("click",function(e)
 {
   e.preventDefault();
-  
+ let username= inputCloseUsername.value;
+ let pin=Number( inputClosePin.value);
+  if(username===currentAccount.username&&pin===currentAccount.pin)
+  {
+      console.log("closed");
+      accounts.splice(accounts.findIndex(Element=>Element.username===username),1);
+     containerApp.style.opacity=0;
+     labelWelcome.textContent=`Log in to get started`;
+
+  }
+  inputCloseUsername.value=inputClosePin.value="";
+
+
 })
