@@ -129,6 +129,14 @@ function makeDeposites(accounts)
 //     )
   
 // }
+function updateUI(account)
+{
+  displayMovements(account.movements);
+
+  calculateBalance(account);
+
+  calcDisplaySummary(account);
+}
 
 function calculateBalance(account)
 {
@@ -176,17 +184,13 @@ btnLogin.addEventListener("click",function(e)
     labelWelcome.textContent=`welcome back, ${currentAccount.owner.split(' ')[0]}`
     containerApp.style.opacity=100;
 
-    
+    inputLoginUsername.value=inputLoginPin.value="";
+    inputLoginPin.blur();
+  
+   updateUI(currentAccount)
 
   }
-  inputLoginUsername.value=inputLoginPin.value="";
-    inputLoginPin.blur();
-  displayMovements(currentAccount.movements);
-
-  calculateBalance(currentAccount);
-
-  calcDisplaySummary(currentAccount);
-   
+  
 });
 btnTransfer.addEventListener("click",function(e)
 {
@@ -201,6 +205,15 @@ btnTransfer.addEventListener("click",function(e)
     receivedAcc?.username!==currentAccount.username)
   {
     console.log("valid");
-    
+    currentAccount.movements.push(-amount);
+    receivedAcc.movements.push(amount);
+    updateUI(currentAccount);
   }
+  inputTransferAmount.value=inputTransferTo.value="";
+});
+
+btnClose.addEventListener("click",function(e)
+{
+  e.preventDefault();
+  
 })
