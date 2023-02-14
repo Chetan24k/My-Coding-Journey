@@ -21,3 +21,12 @@ const pizzaTimer=setTimeout((para1,para2) => {
 
 //we can stop the timeout before its executes callback function
 if(ingredients.includes("olives 🥒"))clearTimeout(pizzaTimer);
+
+
+//set interval executes callback function continulously after fixed interval
+
+setInterval(function()
+{
+    let d=new Date();
+    console.log(` Current time is ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`);
+},2000);
