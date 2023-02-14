@@ -53,7 +53,7 @@ const msg=document.createElement("div");
 
 msg.classList.add("cookie-message");
 // msg.textContent="we use cookies for improved "
-msg.innerHTML=`we use cookies for improved functionality <button class="btn btn--close-cookie">Got it!</button> `;
+msg.innerHTML=`<h3>we use cookies for improved functionality</h3> <button class="btn btn--close-cookie">Got it!</button> `;
 header.prepend(msg);
 //adds element as the first child of element
 header.append(msg);
@@ -72,3 +72,31 @@ document.querySelector('.btn--close-cookie').addEventListener('click',function()
   //earlier method
   // msg.parentElement.removeChild(msg);
 })
+
+msg.style.backgroundColor="#37383d";
+msg.style.width="120%";
+
+console.log(msg.style.height);
+//here we will get nothing as style property can only access to inline styles or the the styles we set through js
+// and not the styles stored in seprate css files
+
+//to get css files style use>
+console.log(getComputedStyle(msg).height);
+msg.style.height= Number.parseFloat( getComputedStyle(msg).height,10)+40+"px";
+// here as we get the height in string we first convert to number
+
+//we can change the css variables value 
+document.documentElement.style.setProperty('--color-primary','orangered')
+
+
+//attributes
+const logo=document.querySelector('.nav__logo');
+console.log(logo.src);
+console.log(logo.alt);
+console.log(logo.className);
+
+//classes
+// logo.classList.add();
+// logo.classList.remove();
+// logo.classList.toggle();
+// logo.classList.contains();
