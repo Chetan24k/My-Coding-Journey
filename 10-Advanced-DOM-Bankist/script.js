@@ -1,12 +1,15 @@
 'use strict';
  
-///////////////////////////////////////
-// Modal window
 
+const btnScrollTo=document.querySelector('.btn--scroll-to');
+const section1=document.getElementById("section--1");
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
+
+///////////////////////////////////////
+// Modal window
 
 const openModal = function(e) {
   e.preventDefault();
@@ -100,21 +103,9 @@ msg.style.height= Number.parseFloat( getComputedStyle(msg).height,10)+40+"px";
 // logo.classList.remove();
 // logo.classList.toggle();
 // logo.classList.contains();
-const btnScrollTo=document.querySelector('.btn--scroll-to');
-const section1=document.getElementById("section--1");
 
-btnScrollTo.addEventListener('click',function(e)
-{
-  const s1coords=section1.getBoundingClientRect();
-  console.log("section 1",s1coords);
-  // console.log(e.target.getBoundingClientRect());
-  console.log("pageoff set",window.pageXOffset,window.pageYOffset);
-  console.log("doc element",document.documentElement.clientHeight,document.documentElement.clientWidth);
-  //scrolling
-  // window.scrollTo({left:s1coords.left+window.pageXOffset,top:s1coords.top+window.pageYOffset,behavior:"smooth"}
-  //   );
-  section1.scrollIntoView({behavior: "smooth"});
-})
+
+
 
 function randomNumber(min, max) {
   return Math.random() * (max - min) + min;
@@ -130,18 +121,55 @@ document.querySelector(".nav__link").addEventListener("click",function(e)
 
   this.style.backgroundColor=genrateColor();
   
-  console.log("1",e.target);
+  // console.log("1",e.target);
 })
 document.querySelector(".nav__links").addEventListener("click",function(e)
 {
   this.style.backgroundColor=genrateColor();
 
-  console.log("2",e.target);
+  // console.log("2",e.target);
 })
 document.querySelector(".nav").addEventListener("click",function(e)
 {
   this.style.backgroundColor=genrateColor();
 
-  console.log("3",e.target);
-  //all have same target as 1 only AS THIS event only genrated there
+  // console.log("3",e.target);
+  //all have same target as 1 only AS THIS event only genrated there 
 })
+
+//page navigation
+btnScrollTo.addEventListener('click',function(e)
+{
+  const s1coords=section1.getBoundingClientRect();
+  console.log("section 1",s1coords);
+  // console.log(e.target.getBoundingClientRect());
+  console.log("pageoff set",window.pageXOffset,window.pageYOffset);
+  console.log("doc element",document.documentElement.clientHeight,document.documentElement.clientWidth);
+  //scrolling
+  // window.scrollTo({left:s1coords.left+window.pageXOffset,top:s1coords.top+window.pageYOffset,behavior:"smooth"}
+  //   );
+  section1.scrollIntoView({behavior: "smooth"});
+})
+//page navigation
+
+// let navlinks=document.querySelectorAll(".nav__link");
+// navlinks.forEach(Element=>Element.addEventListener("click",function(e)
+// {
+//   e.preventDefault();
+//   const id=this.getAttribute("href");
+//  console.log(id);
+//  document.querySelector(id).scrollIntoView({behavior:"smooth"});
+// }))
+
+document.querySelector(".nav__links").addEventListener("click",function(e)
+{
+  e.preventDefault();
+
+  if(e.target.classList.contains("nav__link"))
+  {
+    const id=e.target.getAttribute("href");
+    // console.log(id);
+    document.querySelector(id).scrollIntoView({behavior:"smooth"});
+  }
+})
+
