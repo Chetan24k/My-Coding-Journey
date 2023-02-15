@@ -41,8 +41,8 @@ document.addEventListener('keydown', function (e) {
   }
 });
 //selecting html element
-console.log(document.documentElement);
-console.log(document.body);
+// console.log(document.documentElement);
+// console.log(document.body);
 
 const header= document.querySelector(".header");
 
@@ -86,17 +86,62 @@ msg.style.height= Number.parseFloat( getComputedStyle(msg).height,10)+40+"px";
 // here as we get the height in string we first convert to number
 
 //we can change the css variables value 
-document.documentElement.style.setProperty('--color-primary','orangered')
+// document.documentElement.style.setProperty('--color-primary','--color-primary')
 
 
 //attributes
-const logo=document.querySelector('.nav__logo');
-console.log(logo.src);
-console.log(logo.alt);
-console.log(logo.className);
+// const logo=document.querySelector('.nav__logo');
+// console.log(logo.src);
+// console.log(logo.alt);
+// console.log(logo.className);
 
 //classes
 // logo.classList.add();
 // logo.classList.remove();
 // logo.classList.toggle();
 // logo.classList.contains();
+const btnScrollTo=document.querySelector('.btn--scroll-to');
+const section1=document.getElementById("section--1");
+
+btnScrollTo.addEventListener('click',function(e)
+{
+  const s1coords=section1.getBoundingClientRect();
+  console.log("section 1",s1coords);
+  // console.log(e.target.getBoundingClientRect());
+  console.log("pageoff set",window.pageXOffset,window.pageYOffset);
+  console.log("doc element",document.documentElement.clientHeight,document.documentElement.clientWidth);
+  //scrolling
+  // window.scrollTo({left:s1coords.left+window.pageXOffset,top:s1coords.top+window.pageYOffset,behavior:"smooth"}
+  //   );
+  section1.scrollIntoView({behavior: "smooth"});
+})
+
+function randomNumber(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+function genrateColor()
+{
+  return `rgb(${randomNumber(0,255)},${randomNumber(0,255)},${randomNumber(0,255)}`
+}
+
+document.querySelector(".nav__link").addEventListener("click",function(e)
+{
+
+  this.style.backgroundColor=genrateColor();
+  
+  console.log("1",e.target);
+})
+document.querySelector(".nav__links").addEventListener("click",function(e)
+{
+  this.style.backgroundColor=genrateColor();
+
+  console.log("2",e.target);
+})
+document.querySelector(".nav").addEventListener("click",function(e)
+{
+  this.style.backgroundColor=genrateColor();
+
+  console.log("3",e.target);
+  //all have same target as 1 only AS THIS event only genrated there
+})
