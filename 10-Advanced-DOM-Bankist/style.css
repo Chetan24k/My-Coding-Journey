@@ -169,7 +169,7 @@ img {
   background-color: var(--color-primary-darker);
   color: #333;
 }
-
+ 
 /* HEADER */
 .header {
   padding: 0 3rem;
@@ -459,7 +459,7 @@ h4 {
 
 .dots__dot--active {
   /* background-color: #fff; */
-  background-color: #888;
+  background-color: #fff;
   opacity: 1;
 }
 
