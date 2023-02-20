@@ -7,7 +7,9 @@ const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
-
+const nav=document.querySelector(".nav");
+const header=document.querySelector(".header");
+// console.log(header);
 ///////////////////////////////////////
 // Modal window
 
@@ -47,7 +49,6 @@ document.addEventListener('keydown', function (e) {
 // console.log(document.documentElement);
 // console.log(document.body);
 
-const header= document.querySelector(".header");
 
 
 //creating and inserting elements
@@ -173,3 +174,201 @@ document.querySelector(".nav__links").addEventListener("click",function(e)
   }
 })
 
+//going downwards child
+
+const h1=document.querySelector("h1");
+
+//going downwards
+
+// console.log(h1.querySelectorAll(".highlight"));
+
+//going downwards
+// console.log(h1.childNodes);
+// console.log(h1.children);
+h1.firstElementChild.style.color="white";
+h1.lastElementChild.style.color="orangered";
+
+//going upwards selecting parents
+// console.log(h1.parentNode);
+// console.log(h1.parentElement);
+
+h1.closest('.header').style.background="var(--gradient-secondary)";
+//closest method finds parent no matter how far up in dom tree basicalyy it is opposite of opposite of queryselector
+
+
+//traversing siblings elements
+// console.log(h1.previousElementSibling);
+// console.log(h1.previousSibling);
+
+// console.log(...h1.parentElement.children);
+[...h1.parentElement.children].forEach(function(element)
+{
+  if(element!=h1)
+  {
+    // element.style.transform="scale(0.5)"
+  }
+})
+let opTab=document.querySelector(".operations__tab-container");
+opTab.addEventListener("click",function(e)
+{
+ let target=(e.target.closest(".btn"));
+ if(!target)return;
+
+ //removal of active classes
+ [...document.querySelectorAll(".operations__tab--active")].forEach(element=>element.classList.remove("operations__tab--active"));
+  [...document.querySelectorAll(".operations__content--active")].forEach(element=>element.classList.remove("operations__content--active"));
+
+ //adding the active class to elements
+document.querySelector(`.operations__content--${target.dataset.tab}`).classList.add("operations__content--active");
+ target.classList.add("operations__tab--active");
+})
+
+
+let navLinks=document.querySelectorAll(".nav__link");
+
+function mouseMovement(e)
+{
+  // console.log(this);
+  // console.log("nav",e.target);
+  if(e.target.classList.contains("nav__link"))            
+  {
+    const link=e.target;
+    const siblings= link.closest(".nav").querySelectorAll(".nav__link");
+    // console.log("sibling",siblings);
+    siblings.forEach(element=>
+      {
+        if(element!=link)
+        {
+          element.style.opacity=this;
+        }
+      })
+
+  }
+}
+document.querySelector(".nav").addEventListener("mouseover",mouseMovement.bind(0.5));
+document.querySelector(".nav").addEventListener("mouseout",mouseMovement.bind(1.0));
+
+let coOrd=nav.getBoundingClientRect();
+// window.addEventListener("scroll",function(e)
+// {
+
+//   console.log(window.scrollY);
+//   if(coOrd.top<=window.scrollY)
+//   {
+//      nav.classList.add("sticky"); 
+//   }
+//   else
+//   {
+//     nav.classList.remove("sticky"); 
+
+//   }
+// })
+// const obsCallback=function(entries,observer)//will get called each time traget element intersect the root element
+// {
+//     entries.forEach(entry=>
+//       {
+//         console.log(entry);
+//       })
+// }
+// const obspOptions={
+//   root:null,//the element wer want to intersect null means viewport
+//   threshold:0.2
+//   //target element is intersecting the element at the threshold that we are defining
+// }
+console.log(header.offsetHeight);
+let navHeight=nav.getBoundingClientRect().height;
+// const observer=new IntersectionObserver(obsCallback,obspOptions);
+// observer.observe(section1)//section1 is target;
+const headObserver=new IntersectionObserver(stickynav,{
+  root:null,
+  threshold:0,
+  rootMargin:-navHeight+"px" 
+});
+headObserver.observe(header);
+function stickynav(entries)
+{
+   const [entry]=entries;
+   
+   if(entry.isIntersecting===false){
+   nav.classList.add("sticky");
+  }
+   else{
+    nav.classList.remove("sticky");
+
+   }
+}
+
+let sectionArr=document.querySelectorAll(".section");
+sectionArr.forEach(element=>
+  {
+    console.log(element);
+    return element.classList.add("section--hidden")
+  });
+let revealSection=function(entries,observer)
+{
+  let [element]=entries;
+  if(!element.isIntersecting)return;
+    element.target.classList.remove("section--hidden");
+
+    observer.unobserve(element.target);
+ 
+}
+
+let observer=new IntersectionObserver(revealSection,{
+  root:null,
+  threshold:0.15
+})
+
+sectionArr.forEach(element=>
+ {
+  element.classList.add("section--hidden")
+
+   observer.observe(element);
+}
+  )
+
+
+
+
+ let revealImage=function(entries,observer)
+  {
+    let [entry]=entries;
+    console.log(entry);
+    entries.forEach(function(entry)
+    {  
+      if(entry.isIntersecting===false)return
+      entry.target.src=entry.target.dataset.src;
+      entry.target.addEventListener("load",function()
+      {
+        entry.target.classList.remove("lazy-img"); 
+      })
+   
+    observer.unobserve(entry.target) });
+    // entry.target
+  }
+
+  const showImg = function(entries, observer){
+    entries.forEach(entry => {
+      if(!entry.isIntersecting) return;
+     
+        entry.target.src = entry.target.dataset.src;
+      
+        entry.target.addEventListener('load', function(){
+        entry.target.classList.remove('lazy-img');
+        });
+        observer.unobserve(entry.target);
+    });
+  };
+let imageObserver=new IntersectionObserver(showImg,
+  {
+    root:null,
+    threshold:0.1,
+    rootMargin:"-200px"  });
+
+  let images=document.querySelectorAll("img[data-src]");
+  console.log(images);
+  images.forEach(function(element)
+  {
+   return imageObserver.observe(element);
+  })
+  
