@@ -445,7 +445,7 @@ let createDots=function()
       );
     }
   )
-}
+} 
 
 createDots();
 goToSlide(0);
