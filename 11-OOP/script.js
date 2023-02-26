@@ -17,19 +17,20 @@ let chetanObj=new person("chetan",1999);
 console.log(chetanObj);
 let manasviObj=new person("manasvi",2000);
 console.log(manasviObj);
-let vijay="vijay";
-console.log(chetanObj instanceof  person);
-console.log(vijay instanceof person);
-person.prototype.pin=421503;
-chetanObj.__proto__.age=21;
-console.log(manasviObj);
-console.log(person.prototype);
 
-
-let obj={
-    name:"hi"
+person.prototype.calcAge=function(currentYear)
+{
+    return currentYear-this.by;
 }
-obj.__proto__.points=22;
-console.log(obj.__proto__);
+person.prototype.species="humans";
+
+// console.log(chetanObj.calcAge(2037));
+// console.log(Object.prototype.isPrototypeOf(chetanObj) );
+
+console.log(chetanObj.__proto__.__proto__.__proto__);
+let arr=[1,2,3,4,5];
+console.log(Array.prototype);
+
+
 
 
