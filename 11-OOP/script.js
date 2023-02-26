@@ -31,6 +31,21 @@ console.log(chetanObj.__proto__.__proto__.__proto__);
 let arr=[1,2,3,4,5];
 console.log(Array.prototype);
 
+//class declaration
 
+class personCl{
+    constructor(birthYear,name)
+    {
+        this.birthYear=birthYear;
+        this.name=name;
+    }
 
+    calcAge(currentYear)
+    {
+        console.log(currentYear-this.birthYear);
+    }
+}
 
+let alex=new personCl(1988,"alex");
+console.log(alex);
+console.log(alex.__proto__===personCl.prototype);
