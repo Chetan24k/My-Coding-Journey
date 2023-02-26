@@ -1,14 +1,33 @@
-const person=function(firstName, birthYear)//construtor function 
-{
-    this.fname=firstName;
-    this.by=birthYear;
+class personCl{
+    constructor(birthYear,name)
+    {
+        this.birthYear=birthYear;
+        this.fname=name;
+    }
+
+    calcAge(currentYear)
+    {
+        console.log(currentYear-this.birthYear);
+    }
+
+    // get birthYear()
+    // {
+    //     console.log(this.birthYear);
+    // }
+    set fname(fullName)
+    {
+        if(fullName.includes(" ")) this._fname=fullName;
+        // fullName.includes(" ")&&this.fname=fullName;
+        else console.log("not a fullname");
+    }
+    get fname()
+    {
+        console.log( this._fname);
+    }
+
 }
 
-person.prototype.calculateAge=function(currentYear)
-{
-    return currentYear-this.by;
-}
-
-
-let chetanObj=new person("chetan",1999);
-console.log(chetanObj.calculateAge());
+let alex=new personCl(1988,"alex perira");
+console.log(alex);
+alex.fname="chetan kharote";
+console.log(alex.fname);

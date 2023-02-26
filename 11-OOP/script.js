@@ -37,15 +37,51 @@ class personCl{
     constructor(birthYear,name)
     {
         this.birthYear=birthYear;
-        this.name=name;
+        this.fname=name;
     }
 
     calcAge(currentYear)
     {
         console.log(currentYear-this.birthYear);
     }
+
+    // get birthYear()
+    // {
+    //     console.log(this.birthYear);
+    // }
+    set fname(fullName)
+    {
+        if(fullName.includes(" ")) this._fname=fullName;
+        // fullName.includes(" ")&&this.fname=fullName;
+        else console.log("not a fullname");
+    }
+    get fname()
+    {
+        console.log( this._fname);
+    }
+
 }
 
-let alex=new personCl(1988,"alex");
+let alex=new personCl(1988,"alex perira");
 console.log(alex);
+alex.fname="chetan kharote";
+console.log(alex.fname);
 console.log(alex.__proto__===personCl.prototype);
+
+
+
+//setters and getters
+const bank={
+    movements:[20,30,100,450],
+    get latest()
+    {
+        console.log(this.movements.slice(-1).pop());
+        console.log(this.movements[0]);
+    },
+    set setName(name){
+        this.name=name;
+    }
+}
+console.log(bank.latest);
+bank.setName="boi";
+console.log(bank);
