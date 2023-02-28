@@ -1,33 +1,21 @@
-class personCl{
-    constructor(birthYear,name)
+class account{
+    constructor(owner,currency,pin)
     {
-        this.birthYear=birthYear;
-        this.fname=name;
+        this.owner=owner;
+        this.currency=currency;
+        this.pin=pin;
+        this.movements=[];
     }
-
-    calcAge(currentYear)
+    set deposit(amt)
     {
-        console.log(currentYear-this.birthYear);
+        this.movements.push(amt);
     }
-
-    // get birthYear()
+    // set withdraw()
     // {
-    //     console.log(this.birthYear);
+    //     this.movements.pop();
     // }
-    set fname(fullName)
-    {
-        if(fullName.includes(" ")) this._fname=fullName;
-        // fullName.includes(" ")&&this.fname=fullName;
-        else console.log("not a fullname");
-    }
-    get fname()
-    {
-        console.log( this._fname);
-    }
 
 }
-
-let alex=new personCl(1988,"alex perira");
-console.log(alex);
-alex.fname="chetan kharote";
-console.log(alex.fname);
+let acc1=new account("chetan","$",1234);
+acc1.deposit=200;
+console.log(acc1.movements);

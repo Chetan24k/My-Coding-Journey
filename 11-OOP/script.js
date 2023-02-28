@@ -68,6 +68,18 @@ alex.fname="chetan kharote";
 console.log(alex.fname);
 console.log(alex.__proto__===personCl.prototype);
 
+//inheritance in classes
+
+class studentCl extends personCl {
+  constructor(birthYear,fname,course) 
+  {
+    super(birthYear,fname);
+    this.course=course;
+  }
+}
+let student1=new studentCl(1999,"ck","cs");
+student1.calcAge(2010);
+console.log(student1);
 
 
 //setters and getters
@@ -85,3 +97,41 @@ const bank={
 console.log(bank.latest);
 bank.setName="boi";
 console.log(bank);
+
+class account{
+
+    #pin;
+    #movements;
+    constructor(owner,currency,pin)
+    {
+        this.owner=owner;
+        this.currency=currency;
+        this.pin=pin;
+        this._movements=[];
+    }
+    set deposit(amt)
+    {
+        this.movements.push(amt);
+    }
+    set withdraw(amt)
+    {
+        this.deposit=-amt;
+    }
+    _approveloan(amt)
+    {
+        return true;
+    }
+    requestloan(amt)
+    {
+        if(this._approveloan())
+        {
+            this._movements.push(amt);
+        }
+    }
+
+}
+let acc1=new account("chetan","$",1234);
+acc1.deposit=200;
+acc1.withdraw=150;
+console.log(acc1.movements);
+console.log(acc1.pin);
