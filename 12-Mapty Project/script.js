@@ -10,12 +10,13 @@ const inputDistance = document.querySelector('.form__input--distance');
 const inputDuration = document.querySelector('.form__input--duration');
 const inputCadence = document.querySelector('.form__input--cadence');
 const inputElevation = document.querySelector('.form__input--elevation');
+
 let mapE;
 let map;
 
 class workout{
-date=new Date();
-id=(new Date()+'').slice(-10);
+  date = new Date();
+  id = (Date.now() + '').slice(-10);
 
 constructor(coords,distance,duration)
 {
@@ -27,6 +28,7 @@ constructor(coords,distance,duration)
 
 class running extends workout
 {
+  type="running";
   constructor(coords,distance,duration,cadence)
   {
     super(coords,distance,duration);
@@ -40,6 +42,7 @@ class running extends workout
 }
 class cycling extends workout
 {
+  type="cycling";
   constructor(coords,distance,duration,elevation)
   {
     super(coords,distance,duration);
@@ -55,6 +58,7 @@ class cycling extends workout
 class App {
   #mapE;
   #map;
+  #activity=[];
   constructor() {
     this._getPosition();
     form.addEventListener('submit', this._newWorkout.bind(this));
@@ -102,7 +106,13 @@ class App {
     inputElevation.closest('.form__row').classList.toggle('form__row--hidden');
   }
   _newWorkout(e) {
+
+   const _validateInput=(...inputs)=>inputs.every(inp=>Number.isFinite(inp));
+   const checkPositive=(...inputs)=>inputs.every(inp=>inp>0);
+    e.preventDefault();
     //get data from app
+    let workout;
+    let { lat, lng } = this.#mapE.latlng;
     const type = inputType.value;
     const distance = +inputDistance.value;
     const duration = +inputDuration.value;
@@ -112,10 +122,23 @@ class App {
     //create workout according to type
     if (type === 'running') {
       const cadence = +inputCadence.value;
+      if(!_validateInput(distance,duration,cadence))return alert("enter positive number");
+      if(!checkPositive(distance,duration,cadence))return alert("enter positive number")
+      
+      workout=new running([lat,lng],distance,duration,cadence);
+      this.#activity.push(workout);
     }
     if (type === 'cycling') {
       const elevation = +inputElevation.value;
+      if(!_validateInput(distance,duration,elevation))return alert("enter positive number");
+      if(!checkPositive(distance,duration,elevation))return alert("enter positive number")
+      
+      workout=new cycling([lat,lng],distance,duration,elevation);
+      this.#activity.push(workout);
+
     }
+    this._renderPopup(workout)
+    console.log(workout);
     //add new object to workout array
 
     //render workout on map as marker
@@ -125,10 +148,13 @@ class App {
       inputDuration.value =
       inputElevation.value =
         '';
-    e.preventDefault();
+   
     console.log(this);
-    let { lat, lng } = this.#mapE.latlng;
-    L.marker([lat, lng])
+    
+  }
+  _renderPopup(workout)
+  {
+    L.marker(workout.coords)
       .addTo(this.#map)
       .bindPopup(
         L.popup({
@@ -136,20 +162,13 @@ class App {
           minWidth: 100,
           autoClose: false,
           closeOnClick: false,
-          className: 'running-popup',
+          className: `${workout.type}-popup`,
         })
       )
-      .setPopupContent('Walking')
+      .setPopupContent("workout")
       .openPopup();
   }
-  _validateInput(distance, duration, type) {
-    if (
-      !Number.isFinite(distance) ||
-      !Number.isFinite(duration) ||
-      !Number.isFinite(type)
-    )
-      return alert('inputs should be positive number');
-  }
+  
 }
 
 let app=new App();
