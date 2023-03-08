@@ -28,6 +28,10 @@ setDescription()
   {
     this.description=`${this.type[0].toUpperCase()}${this.type.slice(1)} on ${this.months[this.date.getMonth()]} ${this.date.getDay()}`;
   }
+  click()
+  {
+    this.clicks++;
+  }
 }
 
 class running extends workout
@@ -68,10 +72,14 @@ class App {
   #mapE;
   #map;
   #activity=[];
+  #zoomlevel=14;
   constructor() {
     this._getPosition();
     form.addEventListener('submit', this._newWorkout.bind(this));
     inputType.addEventListener('change', this._toggleElevationField);
+    containerWorkouts.addEventListener("click",this._moveMarker.bind(this));
+    this._getLocalStorage();
+
   }
   _getPosition() {
     if (navigator.geolocation) {
@@ -91,7 +99,7 @@ class App {
     let url = `https://www.google.com/maps/@${latitude},${longitude}`;
 
     let cordinates = [latitude, longitude];
-    this.#map = L.map('map').setView(cordinates, 14);
+    this.#map = L.map('map').setView(cordinates, this.#zoomlevel);
 
     L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
       attribution:
@@ -104,6 +112,7 @@ class App {
       .addTo(this.#map)
       .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
       .openPopup();
+      this.#activity.forEach(workout=>this._renderPopup(workout))
   }
   _showForm(mapEvent) {
     this.#mapE = mapEvent;
@@ -157,7 +166,8 @@ class App {
     this._renderPopup(workout);
     this._renderWorkout(workout);
     this._hideForm();
-    console.log(workout);
+    this._setLocalStorage();
+  
     //add new object to workout array
 
     //render workout on map as marker
@@ -235,7 +245,32 @@ class App {
     }
     form.insertAdjacentHTML("afterend",html);
   }
-  
+  _moveMarker(e)
+  {
+    const workoutEl=e.target.closest(".workout");
+    if(!workoutEl)return;
+   const workout= this.#activity.find(work=>work.id===workoutEl.dataset.id);
+    console.log(workout);
+    this.#map.setView(workout.coords,this.#zoomlevel,{
+      animate:true,
+      pan:{
+        duartion:1,
+      },
+    })
+    this.workout.click();
+  }
+  _setLocalStorage(workout)
+  {
+    localStorage.setItem('workout',JSON.stringify(this.#activity));
+  }
+  _getLocalStorage()
+  {
+   const data=JSON.parse( localStorage.getItem("workout"));
+
+   if(!data)return;
+   this.#activity=data;
+   this.#activity.forEach(work=>this._renderWorkout(work))
+  }
 }
 
 let app=new App();
