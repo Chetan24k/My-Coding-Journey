@@ -271,6 +271,11 @@ class App {
    this.#activity=data;
    this.#activity.forEach(work=>this._renderWorkout(work))
   }
+  reset()
+  {
+    localStorage.removeItem("workout");
+    location.reload();
+  }
 }
 
 let app=new App();
