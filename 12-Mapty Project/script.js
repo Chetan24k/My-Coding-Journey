@@ -1,7 +1,6 @@
 'use strict';
 
 // prettier-ignore
-const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 const form = document.querySelector('.form');
 const containerWorkouts = document.querySelector('.workouts');
@@ -17,6 +16,7 @@ let map;
 class workout{
   date = new Date();
   id = (Date.now() + '').slice(-10);
+  months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 constructor(coords,distance,duration)
 {
@@ -24,6 +24,10 @@ constructor(coords,distance,duration)
   this.distance=distance;
   this.duration=duration;
 }
+setDescription()
+  {
+    this.description=`${this.type[0].toUpperCase()}${this.type.slice(1)} on ${this.months[this.date.getMonth()]} ${this.date.getDay()}`;
+  }
 }
 
 class running extends workout
@@ -33,12 +37,15 @@ class running extends workout
   {
     super(coords,distance,duration);
     this.cadence=cadence;
+    this.setDescription();
+    this.calcPace();
   }
   calcPace()
   {
     this.pace = this.duration/this.distance;
     return this.pace;
   }
+  
 }
 class cycling extends workout
 {
@@ -47,6 +54,8 @@ class cycling extends workout
   {
     super(coords,distance,duration);
     this.elevation=elevation;
+    this.setDescription();
+    this.calcSpeed();
   }
   calcSpeed()
   {
@@ -101,6 +110,14 @@ class App {
     inputDistance.focus();
     form.classList.remove('hidden');
   }
+  _hideForm()
+  {
+    inputDistance.value =inputCadence.value =inputDuration.value =inputElevation.value =
+        '';
+        form.style.display="none";
+        form.classList.add("hidden");
+        setTimeout(()=>form.style.display="grid",1000);
+  }
   _toggleElevationField() {
     inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
     inputElevation.closest('.form__row').classList.toggle('form__row--hidden');
@@ -137,7 +154,9 @@ class App {
       this.#activity.push(workout);
 
     }
-    this._renderPopup(workout)
+    this._renderPopup(workout);
+    this._renderWorkout(workout);
+    this._hideForm();
     console.log(workout);
     //add new object to workout array
 
@@ -165,8 +184,56 @@ class App {
           className: `${workout.type}-popup`,
         })
       )
-      .setPopupContent("workout")
+      .setPopupContent(`${workout.type==="running"?"🏃‍♂️":"🚴‍♂️"}${workout.description}`)
       .openPopup();
+  }
+  _renderWorkout(workout)
+  {
+    let html=`
+    <li class="workout workout--${workout.type}" data-id="${workout.id}">
+    <h2 class="workout__title">${workout.description}</h2>
+    <div class="workout__details">
+      <span class="workout__icon">${workout.type==="running"?"🏃‍♂️":"🚴‍♂️"}</span>
+      <span class="workout__value">${workout.distance}</span>
+      <span class="workout__unit">km</span>
+    </div>
+    <div class="workout__details">
+      <span class="workout__icon">⏱</span>
+      <span class="workout__value">${workout.duration}</span>
+      <span class="workout__unit">min</span>
+    </div>
+    `
+    if(workout.type==="running")
+    {
+      html+=` <div class="workout__details">
+      <span class="workout__icon">⚡️</span>
+      <span class="workout__value">${workout.pace.toFixed(1)}</span>
+      <span class="workout__unit">min/km</span>
+    </div>
+    <div class="workout__details">
+      <span class="workout__icon">🦶🏼</span>
+      <span class="workout__value">${workout.cadence}</span>
+      <span class="workout__unit">spm</span>
+    </div>
+  </li>`
+    }
+    if(workout.type==="cycling")
+    {
+      html+=`
+      <div class="workout__details">
+            <span class="workout__icon">⚡️</span>
+            <span class="workout__value">${workout.speed.toFixed(1)}</span>
+            <span class="workout__unit">km/h</span>
+          </div>
+          <div class="workout__details">
+            <span class="workout__icon">⛰</span>
+            <span class="workout__value">${workout.elevation}/span>
+            <span class="workout__unit">m</span>
+          </div>
+        </li> -->
+      `
+    }
+    form.insertAdjacentHTML("afterend",html);
   }
   
 }
