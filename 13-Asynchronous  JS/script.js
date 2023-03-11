@@ -53,6 +53,10 @@ let getCountryData=function(country)
     .then(function(response)
     {
         // console.log(response.json());
+        if(!response.ok)
+        {
+            throw new Error(`country not found`);
+        }
         return response.json();
     })
     .then(function(data)
