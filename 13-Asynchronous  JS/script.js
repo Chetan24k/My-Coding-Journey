@@ -47,33 +47,73 @@ const renderCountry=function(data)
 // // getCountry("china");
 
 
+
 let getCountryData=function(country)
 {
-    fetch(`https://restcountries.com/v3.1/name/${country}`)
-    .then(function(response)
+    const getJSON=function(url,errorMsg="this is not a country")
     {
-        // console.log(response.json());
-        if(!response.ok)
+       return fetch(url)
+        .then(function(response)
         {
-            throw new Error(`country not found`);
-        }
-        return response.json();
+            // console.log(response.json());
+            if(!response.ok)
+            {
+                throw new Error(errorMsg);
+            }
+            return response.json();
+        })
+    }
+    getJSON(`https://restcountries.com/v3.1/name/${country}`)
+    .then(function(data)
+    {
+        renderCountry(data[0]);
+        return getJSON(`https://restcountries.com/v3.1/alpha/${data[0].borders[0]}`);
     })
     .then(function(data)
     {
         renderCountry(data[0]);
-        return fetch(`https://restcountries.com/v3.1/alpha/${data[0].borders[0]}`)
     })
-    .then(function(response)
+    .catch(function(error)
     {
-        return response.json();
-    })
-    .then(function(data)
-    {
-        renderCountry(data[0]);
-    });
+        console.log(error);
+    }) 
 }
-getCountryData("india");
+// let getCountryData=function(country)
+// {
+//     fetch(`https://restcountries.com/v3.1/name/${country}`)
+//     .then(function(response)
+//     {
+//         // console.log(response.json());
+//         if(!response.ok)
+//         {
+//             throw new Error(`country not found`);
+//         }
+//         return response.json();
+//     })
+//     .then(function(data)
+//     {
+//         renderCountry(data[0]);
+//         return fetch(`https://restcountries.com/v3.1/alpha/${data[0].borders[0]}`)
+//     })
+//     .then(function(response)
+//     {
+//         return response.json();
+//     })
+//     .then(function(data)
+//     {
+//         renderCountry(data[0]);
+//     })
+//     .catch(function(error)
+//     {
+//         console.log(error);
+//     }) 
+// }
+
+btn.addEventListener("click",function()
+{
+    getCountryData("australia");
+})
+
 let rs=  fetch(`https://restcountries.com/v3.1/name/india`);
 console.log(rs);
    
