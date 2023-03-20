@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Chetan24k/My-Coding-Journey/issues"
   },
-  "homepage": "https://github.com/Chetan24k/My-Coding-Journey#readme"
+  "homepage": "https://github.com/Chetan24k/My-Coding-Journey#readme",
+  "dependencies": {
+    "leaflet": "^1.9.3"
+  }
 }
