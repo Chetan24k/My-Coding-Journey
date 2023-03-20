@@ -1,0 +1,19 @@
+{
+  "name": "my-coding-journey",
+  "version": "1.0.0",
+  "description": "Hello I am learning about JavaScript.\r In this jouney i will be completeing lot exercises and build some projects along the way .\r I will also share some insights and explanation of JavaScript topics by my understanding.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Chetan24k/My-Coding-Journey.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Chetan24k/My-Coding-Journey/issues"
+  },
+  "homepage": "https://github.com/Chetan24k/My-Coding-Journey#readme"
+}
