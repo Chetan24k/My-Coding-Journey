@@ -68,7 +68,10 @@ function createImage(path)
             imgContainer.append(img);
             resolve(img);
        });
-       img.addEventListener("error",reject("image not found"))
+       img.addEventListener("error",function()
+       {
+        reject("image not found");
+       })
     })   
 }
 let currentImage;
